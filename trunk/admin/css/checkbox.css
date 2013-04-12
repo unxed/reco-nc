@@ -1,0 +1,16 @@
+
+.Node {
+        margin-left: 36px;
+}
+.Content {
+        margin-left: 36px;
+}
+.IsRoot { margin-left: 0; }
+
+.Container input {
+    width: 14px;
+    height: 14px;
+    float: left;
+    margin: 2px;
+}
+

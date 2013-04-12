@@ -1,0 +1,22 @@
+* {
+font-family: Verdana, Tahoma, Arial, Sans serif;
+font-size: 12pt;
+}
+
+body, td {
+color: white;
+background-color: #000000;
+}
+
+a { color: #FEB729; }
+
+input
+{
+background-color: #A8B1B8;
+color: 00275E;
+font-weight:bold;
+}
+
+small {
+font-size: 7pt;
+}

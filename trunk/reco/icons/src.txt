@@ -1,0 +1,1 @@
+http://chart.apis.google.com/chart?chs=35x35&chd=t:100,0&cht=p&chp=4.7
