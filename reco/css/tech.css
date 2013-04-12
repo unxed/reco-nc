@@ -1,0 +1,19 @@
+* {
+font-family: Verdana, Tahoma, Arial, Sans serif;
+font-size: 10pt;
+}
+
+body, td {
+}
+
+a { color: #00275E; }
+
+input
+{
+color: #00275E;
+font-weight:bold;
+}
+
+small {
+font-size: 7pt;
+}

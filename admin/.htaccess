@@ -1,0 +1,3 @@
+<Files password.txt>
+Deny from all
+</Files>

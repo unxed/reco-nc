@@ -1,0 +1,27 @@
+body
+{
+font-family: Verdana, Tahoma, Arial;
+font-size: 10pt;
+}
+
+.punktir
+{
+ border-bottom: 1px dashed blue; /* Добавляем пунктирную линию под текстом */
+}
+
+A {
+ text-decoration: none; /* Убираем обычное подчеркивание */
+}
+A:visited {
+ text-decoration: none; /* Убираем обычное подчеркивание */
+}
+A:hover {
+ text-decoration: none; /* Убираем обычное подчеркивание */
+}
+
+.btn
+{
+cursor: pointer;
+cursor: hand;
+}
+
