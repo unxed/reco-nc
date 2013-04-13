@@ -1,13 +1,14 @@
 <?php
 
-require '../../../../../php/helpers.php';
+set_include_path(get_include_path() . PATH_SEPARATOR . '../../../../../../globaltree/');
+include('helpers.php');
 
 //Корневая директория сайта
-define('DIR_ROOT',		$_SERVER['DOCUMENT_ROOT']);
+define('DIR_ROOT',      $_SERVER['DOCUMENT_ROOT']);
 //Директория с изображениями (относительно корневой)
-define('DIR_IMAGES',		$config['mce_img_folder']);
+define('DIR_IMAGES',        $config['mce_img_folder']);
 //Директория с файлами (относительно корневой)
-define('DIR_FILES',		$config['mce_img_folder']);
+define('DIR_FILES',     $config['mce_img_folder']);
 
 
 //Высота и ширина картинки до которой будет сжато исходное изображение и создана ссылка на полную версию

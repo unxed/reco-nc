@@ -1,6 +1,8 @@
 <?php
 
-include ('../../libs/globaltree/auth.php');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../../libs/globaltree/');
+include('helpers.php');
+initAuth();
 
 // Если мы работаем во флеш-режиме, и нам НЕ передали идентификатор сессии в POST,
 // завершаем работу (т.к. флеш не передает id сессии в cookies, id сессии нам может из флеша придти только через POST).

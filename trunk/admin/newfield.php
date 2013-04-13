@@ -1,6 +1,8 @@
 <?php
 
-include('../libs/globaltree/auth.php');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../libs/globaltree/');
+include('helpers.php');
+initAuth();
 checkAuth();
 
 query_result('SET NAMES utf8');

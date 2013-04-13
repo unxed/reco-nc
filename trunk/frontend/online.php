@@ -1,7 +1,10 @@
 <?php
 
-include('../admin/php/auth.php');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../libs/globaltree/');
+include('helpers.php');
 include('playhelp.php');
+
+initAuth();
 
 if (!checkAuthQuiet())
 {

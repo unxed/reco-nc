@@ -1,7 +1,10 @@
 <?php
 
-include('../libs/globaltree/auth.php');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../libs/globaltree/');
+include('helpers.php');
 include('playhelp.php');
+
+initAuth();
 
 // контроль времени выполнения
 if (CFG_LOG_EXECUTION_TIME == 1) { $start_time = microtime_float(); }
@@ -12,7 +15,7 @@ setlocale (LC_ALL, array ('ru_RU.UTF-8', 'ru_RU.UTF-8'));
 
 // аутентификация
 
-checkAuth('../admin/php/login.php?back=../../reco/index.php');
+checkAuth('../admin/php/login.php?back=../../frontend/index.php');
 $user = $_SESSION['user_id'];
 
 secureGetRequestData('game_id', 'action', 'code', 'task', 'hint', 'selection');
@@ -252,7 +255,7 @@ if ($action == 'hint_rq')
 // поэтому вывод заголовка аутентификации делаем здесь.
 
 $welcome = query_val_by_key('login', 'user', 'id', $_SESSION['user_id']);
-echo "Привет, $welcome! <a href=../admin/php/login.php?logout&back=../../reco/index.php>Выход</a><br>";
+echo "Привет, $welcome! <a href=../admin/php/login.php?logout&back=../../frontend/index.php>Выход</a><br>";
 
 // дизайн
 echo '<link rel="stylesheet" href="css/default.css" type="text/css">';
