@@ -1,7 +1,10 @@
 <?php
 
-include('../libs/globaltree/auth.php');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../libs/globaltree/');
+include('helpers.php');
 include('playhelp.php');
+
+initAuth();
 
 // контроль времени выполнения
 $start_time = microtime_float();
@@ -11,7 +14,7 @@ query_result('SET NAMES utf8');
 setlocale (LC_ALL, array ('ru_RU.UTF-8', 'ru_RU.UTF-8'));
 
 // аутентификация
-checkAuth('../admin/php/login.php?back=../../reco/index.php');
+checkAuth('../admin/php/login.php?back=../../frontend/index.php');
 $user = $_SESSION['user_id'];
 
 secureGetRequestData('game', 'action', 'parameter', 'param_user', 'param_task', 'param_linked', 'param_info', 'param_type');

@@ -1,7 +1,10 @@
 <?php
 
-include('../libs/globaltree/auth.php');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../libs/globaltree/');
+include('helpers.php');
 include('playhelp.php');
+
+initAuth();
 
 // контроль времени выполнения
 if (CFG_LOG_EXECUTION_TIME == 1) { $start_time = microtime_float(); }

@@ -1,7 +1,17 @@
 <?php
 
-include('../libs/globaltree/auth.php');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../libs/globaltree/');
+include('helpers.php');
 include('playhelp.php');
+
+initAuth();
+
+// Подключаем либу для мягких переносов
+set_include_path(get_include_path() . PATH_SEPARATOR . '../libs/hypher/');
+include('hypher.php');
+
+// Создание объекта, загрузка файла описания и набора правил
+$hy_ru = new phpHypher('../libs/hypher/hyph_ru_RU.conf');
 
 // контроль времени выполнения
 if (CFG_LOG_EXECUTION_TIME == 1) { $start_time = microtime_float(); }
@@ -11,7 +21,7 @@ query_result('SET NAMES utf8');
 setlocale (LC_ALL, array ('ru_RU.UTF-8', 'ru_RU.UTF-8'));
 
 // аутентификация
-checkAuth('../admin/php/login.php?back=../../reco/index.php');
+checkAuth('../admin/php/login.php?back=../../frontend/index.php');
 $user = $_SESSION['user_id'];
 
 secureGetRequestData('game', 'action', 'parameter', 'param_user', 'param_task', 'param_linked', 'param_info', 'param_type');
@@ -261,7 +271,7 @@ if ($action == 'manual_prolongate')
 */
 
 // Все действия выполнены
-echo "Добро пожаловать, $welcome! <a href=../admin/php/login.php?logout&back=../../reco/index.php>Выход</a><br>";
+echo "Добро пожаловать, $welcome! <a href=../admin/php/login.php?logout&back=../../frontend/index.php>Выход</a><br>";
 
 // дизайн
 echo '<link rel="stylesheet" href="css/tech.css" type="text/css">';
@@ -270,12 +280,6 @@ echo '<link rel="stylesheet" href="css/tech.css" type="text/css">';
 auto_refresh();
 
 // Выведем статистику
-
-// Подключаем либу для мягких переносов
-require_once '../libs/hypher/hypher.php';
-
-// Создание объекта, загрузка файла описания и набора правил
-$hy_ru = new phpHypher('../libs/hypher/hyph_ru_RU.conf');
 
 // Составим списки id участников, их имен и логинов
 // (а если игра закончена - то также составим список времени прохождения)

@@ -2,15 +2,18 @@
 
 $lines_on_page = 100;
 
-include('../libs/globaltree/auth.php');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../libs/globaltree/');
+include('helpers.php');
 include('playhelp.php');
+
+initAuth();
 
 header("Content-Type: text/html; charset=utf-8");
 query_result('SET NAMES utf8');
 setlocale (LC_ALL, array ('ru_RU.UTF-8', 'ru_RU.UTF-8'));
 
 // аутентификация
-authHeader('../../reco/index.php');
+authHeader('../../frontend/index.php');
 
 // дизайн
 echo '<link rel="stylesheet" href="css/tech.css" type="text/css">';

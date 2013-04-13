@@ -3,7 +3,8 @@
 header("Content-Type: text/html; charset=utf-8");
 
 session_start();
-include ('../../libs/globaltree/helpers.php');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../../libs/globaltree/');
+include('helpers.php');
 
 query_result('SET NAMES utf8');
 setlocale (LC_ALL, array ('ru_RU.UTF-8', 'ru_RU.UTF-8'));
@@ -104,13 +105,13 @@ if (!empty($login))
 
 print '<!-- <style>body,td{font-family: Verdana, Tahoma, Arial; font-size:12pt;}</style> -->';
 
-include('../../reco/config.php');
+include('../../frontend/config.php');
 if (CFG_ALLOW_ADDITIONAL_DESIGN == 1)
 {
     // make some style
 
 echo '
-<link rel="stylesheet" href="../../reco/templates/stylesheet.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="../../frontend/templates/stylesheet.css" type="text/css" charset="utf-8" />
 
 <style>
 body, td, input { font-size: 18pt; } 

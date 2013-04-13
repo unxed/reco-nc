@@ -8,6 +8,7 @@ include('../../configs.php');
 
 include('langdata.php');
 include('access.php');
+include('auth.php');
 
 $config[version] = '0.4';
 

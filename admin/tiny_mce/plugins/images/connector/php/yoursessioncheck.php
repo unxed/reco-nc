@@ -12,12 +12,13 @@
 
 /*
 if(!isset( $_SESSION['user'] )) {
-	echo 'В доступе отказано, проверьте файл '.basename(__FILE__);
-	exit();
+    echo 'В доступе отказано, проверьте файл '.basename(__FILE__);
+    exit();
 }
 */
 
-require '../../../../../php/auth.php';
+set_include_path(get_include_path() . PATH_SEPARATOR . '../../../../../../globaltree/');
+include('helpers.php');
 
 if ((isset($_FILES["Filedata"])) && (!isset($_POST['SID'])))
 {
@@ -27,6 +28,7 @@ if ((isset($_FILES["Filedata"])) && (!isset($_POST['SID'])))
         }
 }
 
+initAuth();
 checkAuthPassive();
 
 ?>
