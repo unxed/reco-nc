@@ -42,7 +42,7 @@ function makelist($id, $level)
 
     while ($row = mysql_fetch_array($sql))
     {
-        if (check_object_right($row['id'], ACCESS_READ))
+        if (check_object_right($row['id'], ACCESS_READ | ACCESS_CREATE)) // we need a right to view object's name to create child objects
         {
             $name = getName($row[id]);
 

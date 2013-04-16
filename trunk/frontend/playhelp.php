@@ -1,6 +1,6 @@
 <?php
 
-include('config.php');
+include('preset.php');
 
 reco_init();
 
