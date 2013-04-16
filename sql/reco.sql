@@ -45,7 +45,7 @@ INSERT INTO `access` (`object`, `user`, `group`, `right`, `defined`) VALUES
 (1, NULL, 1, 31, 31),
 (1, -1, NULL, 31, 31),
 (1, -2, NULL, 1, 1),
-(2, -2, NULL, 4, 31);
+(2, -2, NULL, 4, 4);
 
 -- --------------------------------------------------------
 
