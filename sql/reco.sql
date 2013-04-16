@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5
+-- version 3.5.3
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Mar 24, 2013 at 11:59 PM
--- Server version: 5.5.16
--- PHP Version: 5.3.8
+-- Хост: localhost
+-- Время создания: Апр 16 2013 г., 19:22
+-- Версия сервера: 5.5.29-0ubuntu0.12.10.1
+-- Версия PHP: 5.4.6-1ubuntu1.2
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `reco`
+-- База данных: `reco`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `access`
+-- Структура таблицы `access`
 --
 
 CREATE TABLE IF NOT EXISTS `access` (
@@ -38,19 +38,19 @@ CREATE TABLE IF NOT EXISTS `access` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `access`
+-- Дамп данных таблицы `access`
 --
 
 INSERT INTO `access` (`object`, `user`, `group`, `right`, `defined`) VALUES
 (1, NULL, 1, 31, 31),
 (1, -1, NULL, 31, 31),
 (1, -2, NULL, 1, 1),
-(2, -2, NULL, 4, 4);
+(2, -2, NULL, 4, 31);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `config`
+-- Структура таблицы `config`
 --
 
 CREATE TABLE IF NOT EXISTS `config` (
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `config` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `config`
+-- Дамп данных таблицы `config`
 --
 
 INSERT INTO `config` (`id`, `key`, `value`) VALUES
@@ -70,7 +70,7 @@ INSERT INTO `config` (`id`, `key`, `value`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `game_log`
+-- Структура таблицы `game_log`
 --
 
 CREATE TABLE IF NOT EXISTS `game_log` (
@@ -93,12 +93,12 @@ CREATE TABLE IF NOT EXISTS `game_log` (
   KEY `idx_ugt` (`user`,`game`,`type`),
   KEY `idx_tl` (`type`,`linked`),
   KEY `idx_type` (`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `game_request`
+-- Структура таблицы `game_request`
 --
 
 CREATE TABLE IF NOT EXISTS `game_request` (
@@ -110,12 +110,12 @@ CREATE TABLE IF NOT EXISTS `game_request` (
   `login` varchar(50) NOT NULL,
   `force_refresh` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `group`
+-- Структура таблицы `group`
 --
 
 CREATE TABLE IF NOT EXISTS `group` (
@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `group` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `group`
+-- Дамп данных таблицы `group`
 --
 
 INSERT INTO `group` (`id`, `name`, `prio`) VALUES
@@ -136,7 +136,7 @@ INSERT INTO `group` (`id`, `name`, `prio`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `log`
+-- Структура таблицы `log`
 --
 
 CREATE TABLE IF NOT EXISTS `log` (
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `log` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `manual_task_list`
+-- Структура таблицы `manual_task_list`
 --
 
 CREATE TABLE IF NOT EXISTS `manual_task_list` (
@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `manual_task_list` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `messages`
+-- Структура таблицы `messages`
 --
 
 CREATE TABLE IF NOT EXISTS `messages` (
@@ -174,12 +174,12 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `color` varchar(32) NOT NULL,
   `user` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mutex`
+-- Структура таблицы `mutex`
 --
 
 CREATE TABLE IF NOT EXISTS `mutex` (
@@ -191,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `mutex` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `object_class`
+-- Структура таблицы `object_class`
 --
 
 CREATE TABLE IF NOT EXISTS `object_class` (
@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `object_class` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
--- Dumping data for table `object_class`
+-- Дамп данных таблицы `object_class`
 --
 
 INSERT INTO `object_class` (`id`, `name`, `table_name`, `data_source`, `template`, `add_allowed`, `allowed_parents`, `visible`, `default_rights`) VALUES
@@ -224,7 +224,7 @@ INSERT INTO `object_class` (`id`, `name`, `table_name`, `data_source`, `template
 -- --------------------------------------------------------
 
 --
--- Table structure for table `object_data_2`
+-- Структура таблицы `object_data_2`
 --
 
 CREATE TABLE IF NOT EXISTS `object_data_2` (
@@ -235,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `object_data_2` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `object_data_3`
+-- Структура таблицы `object_data_3`
 --
 
 CREATE TABLE IF NOT EXISTS `object_data_3` (
@@ -250,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `object_data_3` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `object_data_4`
+-- Структура таблицы `object_data_4`
 --
 
 CREATE TABLE IF NOT EXISTS `object_data_4` (
@@ -270,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `object_data_4` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `object_data_5`
+-- Структура таблицы `object_data_5`
 --
 
 CREATE TABLE IF NOT EXISTS `object_data_5` (
@@ -291,7 +291,7 @@ CREATE TABLE IF NOT EXISTS `object_data_5` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `object_data_6`
+-- Структура таблицы `object_data_6`
 --
 
 CREATE TABLE IF NOT EXISTS `object_data_6` (
@@ -305,7 +305,7 @@ CREATE TABLE IF NOT EXISTS `object_data_6` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `object_data_10`
+-- Структура таблицы `object_data_10`
 --
 
 CREATE TABLE IF NOT EXISTS `object_data_10` (
@@ -316,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `object_data_10` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `object_data_11`
+-- Структура таблицы `object_data_11`
 --
 
 CREATE TABLE IF NOT EXISTS `object_data_11` (
@@ -327,7 +327,7 @@ CREATE TABLE IF NOT EXISTS `object_data_11` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `object_property`
+-- Структура таблицы `object_property`
 --
 
 CREATE TABLE IF NOT EXISTS `object_property` (
@@ -346,7 +346,7 @@ CREATE TABLE IF NOT EXISTS `object_property` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=43 ;
 
 --
--- Dumping data for table `object_property`
+-- Дамп данных таблицы `object_property`
 --
 
 INSERT INTO `object_property` (`id`, `name`, `object_class_id`, `type`, `table_field`, `list_children`, `order_token`, `is_name`, `maxcnt`, `img_desc`, `default_value`) VALUES
@@ -387,7 +387,7 @@ INSERT INTO `object_property` (`id`, `name`, `object_class_id`, `type`, `table_f
 -- --------------------------------------------------------
 
 --
--- Table structure for table `photo`
+-- Структура таблицы `photo`
 --
 
 CREATE TABLE IF NOT EXISTS `photo` (
@@ -408,7 +408,7 @@ CREATE TABLE IF NOT EXISTS `photo` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `photo_gallery`
+-- Структура таблицы `photo_gallery`
 --
 
 CREATE TABLE IF NOT EXISTS `photo_gallery` (
@@ -426,7 +426,7 @@ CREATE TABLE IF NOT EXISTS `photo_gallery` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `photo_gallery`
+-- Дамп данных таблицы `photo_gallery`
 --
 
 INSERT INTO `photo_gallery` (`id`, `page_editor_element_id`, `width`, `height`, `type`, `prefix`, `crop`, `forceW`, `forceH`, `jpeg_quality`) VALUES
@@ -435,7 +435,7 @@ INSERT INTO `photo_gallery` (`id`, `page_editor_element_id`, `width`, `height`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `session`
+-- Структура таблицы `session`
 --
 
 CREATE TABLE IF NOT EXISTS `session` (
@@ -450,7 +450,7 @@ CREATE TABLE IF NOT EXISTS `session` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `task_selection_request`
+-- Структура таблицы `task_selection_request`
 --
 
 CREATE TABLE IF NOT EXISTS `task_selection_request` (
@@ -459,12 +459,12 @@ CREATE TABLE IF NOT EXISTS `task_selection_request` (
   `group` int(11) NOT NULL,
   `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=383 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tree`
+-- Структура таблицы `tree`
 --
 
 CREATE TABLE IF NOT EXISTS `tree` (
@@ -483,10 +483,10 @@ CREATE TABLE IF NOT EXISTS `tree` (
   KEY `idx_parent` (`parent`),
   KEY `idx_parent_type` (`parent`,`class`),
   KEY `idx_type` (`class`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1261 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1106 ;
 
 --
--- Dumping data for table `tree`
+-- Дамп данных таблицы `tree`
 --
 
 INSERT INTO `tree` (`id`, `parent`, `class`, `order_token`, `name`, `template`, `lock`, `last_modified`, `modified_by`, `internal`, `owner`) VALUES
@@ -502,7 +502,7 @@ INSERT INTO `tree` (`id`, `parent`, `class`, `order_token`, `name`, `template`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Структура таблицы `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
@@ -518,14 +518,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   `last_ts` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`login`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=477 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=480 ;
 
 --
--- Dumping data for table `user`
+-- Дамп данных таблицы `user`
 --
 
 INSERT INTO `user` (`id`, `login`, `password`, `salt`, `access`, `name`, `group`, `is_emu`, `last_point`, `last_ts`) VALUES
-(1, 'admin', '419b4859458f027e1884a3192945651b', 'eq=', 1, 'admin', 1, 0, 0, 0);
+(1, 'admin', '419b4859458f027e1884a3192945651b', 'eq=', 1, 'admin', 1, 0, 0, 0),
+(479, 'stats', 'c2a6b3c6abb918abb5a91fb31b23c5b9', 'jt3', NULL, 'stats', 2, 0, 0, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

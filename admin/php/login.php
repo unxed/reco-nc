@@ -105,23 +105,17 @@ if (!empty($login))
 
 print '<!-- <style>body,td{font-family: Verdana, Tahoma, Arial; font-size:12pt;}</style> -->';
 
-include('../../frontend/config.php');
+include('../../frontend/preset.php');
 if (CFG_ALLOW_ADDITIONAL_DESIGN == 1)
 {
     // make some style
-
-echo '
-<link rel="stylesheet" href="../../frontend/templates/stylesheet.css" type="text/css" charset="utf-8" />
-
-<style>
-body, td, input { font-size: 18pt; } 
-</style>
-
-';
-
+    echo '<link rel="stylesheet" href="../../frontend/templates/stylesheet.css" type="text/css" charset="utf-8" />';
 }
 
 print '
+<style>
+body, td, input { font-size: 18pt; font-family: Verdana, Tahoma, Arial, Sans Serif; } 
+</style>
 <form action="login.php" method="post">
 <table width=100% height=100%><tr><td align=center>
     <table style="width: 17.4em;">

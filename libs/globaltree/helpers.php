@@ -3,12 +3,12 @@
 include('imgtype.php');
 
 // FIXME
-if (file_exists('../configs.php')) {
+if (file_exists('../config.php')) {
     // /admin, /frontend
-    include('../configs.php');
+    include('../config.php');
 } else {
     // /admin/php
-    include('../../configs.php');
+    include('../../config.php');
 }
 
 include('langdata.php');

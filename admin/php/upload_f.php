@@ -9,10 +9,7 @@ initAuth();
 // Если же нам передали идентификатор в POST, он будет использован вместо cookie, см. в начале auth.php.
 if ((isset($_FILES["Filedata"])) && (!isset($_POST["PHPSESSID"])))
 {
-    if ($config[production])
-    {
-        die('Unauthorized request (1).');
-    }
+    die('Unauthorized request (1).');
 }
 
 checkAuthPassive();

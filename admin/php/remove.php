@@ -18,6 +18,8 @@ foreach ($idList as $id)
     if (!check_object_right(getParent($id), ACCESS_DELETE)) { die('access denied'); }
 }
 
+// FIXME: проверять также право на удаление для каждого потомка.
+
 foreach ($idList as $id)
 {
     removeObject($id);

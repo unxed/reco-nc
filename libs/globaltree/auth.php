@@ -2,6 +2,8 @@
 
 function initAuth() {
 
+    global $welcome;
+
     if (isset($_POST["PHPSESSID"])) { session_id($_POST["PHPSESSID"]); }
     // upload.php uses POST for sending session id from flash uploads.
     // session_start should also understand GET and POST, but if cookie available, it seems to prefer cookie
@@ -40,7 +42,7 @@ function initAuth() {
 
                 updTs();
 
-                // не забываем, что для работы с сессионными данными, у нас в каждом скрипте должно присутствовать session_start();
+                // не забываем, что для работы с сессионными данными у нас в каждом скрипте должно присутствовать session_start();
             }
         }
     }
@@ -66,13 +68,6 @@ function initAuth() {
     else
     {
         $welcome = 'гость';
-    }
-
-    if (!$config[production])
-    {
-        // hackfix for debugging purposes
-        $_SESSION['user_id'] = '1';
-        $welcome = 'admin';
     }
 }
 
