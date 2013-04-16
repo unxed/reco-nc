@@ -38,8 +38,8 @@ function hasClass(elem, className) {
 // ------------------------------
 
 // kill element
-function rmEl(id)
-{
+function rmEl(id) {
+
     thisItem = $("#item"+id);
 
     itemParentId = $("#item"+id).parent().parent().attr('id').substring(4);
@@ -51,14 +51,12 @@ function rmEl(id)
 
     thisItem.remove();
 
-    if (itemLastChildId == id)
-    {
+    if (itemLastChildId == id) {
         itemLastChild = $("#item"+itemParentId+" > ul > li:last-child");
         itemLastChild.addClass("IsLast");
     }
 
-    if (!($("#item"+itemParentId+" > ul > li").attr('id')))
-    {
+    if (!($("#item"+itemParentId+" > ul > li").attr('id'))) {
         $("#item"+itemParentId+" > ul").remove;
         $("#item"+itemParentId).removeClass('ExpandOpen');
         $("#item"+itemParentId).removeClass('ExpandClose');
@@ -67,58 +65,45 @@ function rmEl(id)
 }
 
 // create element
-function crEl(id,newId,newContent,openFlag)
-{
+function crEl(id,newId,newContent,openFlag) {
 
     e = $("#item"+id);
     e_ul = $("#item"+id+" > ul");
     ulNew = (e_ul.length==0);
-    if (ulNew)
-    {
+    if (ulNew) {
         e.append("<ul class=\"Container\"></ul>");
         e_ul = $("#item"+id+" > ul");
     }
 
     e_li = $("#item"+id+" > ul > li:last-child");
 
-    code = "<li id=\"item"+newId+"\"><div class=\"Expand\"></div><div class=\"Content\">"+newContent+"</div></li>";
+    code = "<li id=\"item" + newId + "\"><div class=\"Expand\"></div><div class=\"Content\">" + newContent + "</div></li>";
     e_ul.append(code);
 
     e_liNew = $("#item"+id+" > ul > li:last-child");
 
     liNew = (e_li.length==0);
-    if (liNew)
-    {
+    if (liNew) {
         e_liNew.addClass("ExpandLeaf");
     }
-// hackfix
-//  else
-//  {
-        if (e.hasClass("ExpandLeaf"))
-        {       
-            e.removeClass("ExpandLeaf");
 
-            if (openFlag)
-            {
-                e.removeClass("ExpandClosed");
-                e.addClass("ExpandOpen");
-            }
-            else
-            {
-                e.removeClass("ExpandOpen");
-                e.addClass("ExpandClosed");
-            }
+    if (e.hasClass("ExpandLeaf")) {       
+
+        e.removeClass("ExpandLeaf");
+
+        if (openFlag) {
+            e.removeClass("ExpandClosed");
+            e.addClass("ExpandOpen");
+        } else {
+            e.removeClass("ExpandOpen");
+            e.addClass("ExpandClosed");
         }
+    }
 
-        e_li.removeClass("IsLast");
+    e_li.removeClass("IsLast");
+    e_liNew.addClass("ExpandLeaf").addClass("Node").addClass("IsLast");
 
-        e_liNew.addClass("ExpandLeaf");
-//  }
-    e_liNew.addClass("Node");
-    e_liNew.addClass("IsLast");
-
-    if ($("#item"+id+".Root").length>0)
-    {
+    if ($("#item"+id+".Root").length>0) {
         e_liNew.addClass("IsRoot");
     }
 }
@@ -128,14 +113,11 @@ function crEl(id,newId,newContent,openFlag)
 // treeview.js
 // ------------------------------
 
-function getCurrentEditor()
-{
-    if (window.editId != undefined)
-    {
-        if (window.ObjEditors != undefined)
-        {
-            if (window.ObjEditors[window.editId] != undefined)
-            {
+function getCurrentEditor() {
+    if (window.editId != undefined) {
+        if (window.ObjEditors != undefined) {
+            if (window.ObjEditors[window.editId] != undefined) {
+
                 return window.ObjEditors[window.editId];
             }
         }
@@ -144,24 +126,30 @@ function getCurrentEditor()
     return 0;
 }
 
-function edit(id)
-{
-    if (ObjEditor(id, 'editbox') != false)
-    {
-        current = document.getElementById('caption' + id);
-        if (current != undefined)
-        {
-            current.style.color='red';
+function edit(id) {
+    if (ObjEditor(id, 'editbox') != false) {
+
+        current = $('#caption' + id);
+        if (current) {
+            current.attr('data-original-color', current.css('color'));
+            current.css({'color': 'red'});
         }
 
-        el = document.getElementById('caption'+window.selectedLink);
-
-        if ((el!=undefined) && (el!=current))
-        {
-            el.style.color='';
+        if (id!=window.selectedLink) {
+            restoreCaptionColor();
         }
 
-        window.selectedLink=id;
+        window.selectedLink = id;
+    }
+}
+
+function restoreCaptionColor() {
+    if (window.selectedLink) {
+        el = $('#caption' + window.selectedLink);
+
+        if (el) {
+            el.css({'color': el.attr('data-original-color')});
+        }
     }
 }
 
@@ -171,38 +159,36 @@ function edit(id)
 // d - разрешено ли удаление
 // e - выводить сереньким (вроде бы для r/o веток)
 
-function getElCode(a,b,c,d,e)
-{
+function getElCode(a,b,c,d,e) {
+
     // calculate size and weight depending on nesting level
     size = 13 - c; 
     if (size < 9) { size = 9; }
-    style = 'style="font-size:' + size + 'pt;'; if(c%2){style+=' font-weight: bold; ';} if(e==0){style+=' color: #aaa; ';} style+='"';
+    style = 'style="font-size:' + size + 'pt;';
+    if (c%2) { style += ' font-weight: bold; '; }
+    if (e==0) { style += ' color: #aaa; '; }
+    style += '"';
 
-    if (a == 1)
-    {
-        out = '<div style="display:inline;" id=treeEl'+a+'>' +
-        '<a href="javascript:edit('+a+');" id="caption'+a+'" ' + style + ' ' +
-        '>'+b+'</a></div>'; // onClick=edit('+a+');
-    }
-    else
-    {
-        out = '<div style="display:inline;" id=treeEl'+a+
-        ' onMouseOver=setElementOpacity(\'treeUD'+a+'\',1); ' +
-        ' onMouseOut=setElementOpacity(\'treeUD'+a+'\',0);> ' +
-        '<a href="javascript:edit('+a+');" id="caption'+a+'" ' + style + ' ' +
-        '>'+b+'</a>' + // onClick=edit('+a+');
-        '<span style=width:1px; id=treeUD'+a+'>' +
-        '&nbsp;<a title="Вверх" href=javascript:moveEl('+a+',\'-1\');>&uarr;</a>' +
-        '&nbsp;<a title="Вниз" href=javascript:moveEl('+a+',\'1\');>&darr;</a>';
+    if (a == 1) {
+        out = '<span id=treeEl' + a + '>' +
+        '<a href="javascript:edit(' + a + ');" id="caption' + a + '" ' + style + ' >' + b + '</a></span>';
+    } else {
+        out = '<div style="display:inline;" id=treeEl' + a +
+        ' onMouseOver="$(this).find(\'.object-actions\').show();" ' +
+        ' onMouseOut="$(this).find(\'.object-actions\').hide();" > ' +
+        '<a href="javascript:edit(' + a + ');" id="caption' + a + '" ' + style + ' ' +
+        '>' + b + '</a>' +
+        '<span class="object-actions" style="display: none;" id=treeUD'+a+'>' +
+        '&nbsp;<a title="Вверх" href=javascript:moveEl(' + a + ',\'-1\');>&uarr;</a>' +
+        '&nbsp;<a title="Вниз" href=javascript:moveEl(' + a + ',\'1\');>&darr;</a>';
 
         if (d == 1) {
-            out += '&nbsp;<a title="Удалить" href="javascript:if(confirm(\'Удалить объект?\')){rmElAjax('+a+');}" style=color:red;>X</a>';
+            out += '&nbsp;<a title="Удалить" href="javascript:if(confirm(\'Удалить объект?\')){rmElAjax(' + a + ');}" style=color:red;>X</a>';
         }
 
         out += '&nbsp;<a title="Добавить" href="javascript:addObject('+a+');" style=color:green;>+</a>';
 
-        out += '</span></div>' +
-        '<script>setElementOpacity(\'treeUD'+a+'\',0);</script>';
+        out += '</span></div>';
     }
 
     return out;
@@ -210,12 +196,11 @@ function getElCode(a,b,c,d,e)
 
 function UnCheckAllOthers(current) {
 
-    for (var i=0;i<current.form.elements.length;i++)
-    {
+    for (var i=0; i<current.form.elements.length; i++) {
+
         el = current.form.elements[i];
 
-        if ((el.checked) && (el != current))
-        {
+        if ((el.checked) && (el != current)) {
             el.checked = false;
         }
     }
@@ -230,8 +215,7 @@ function resetAddObjectMode() {
     $('#classSelection').hide();
 }
 
-function rmElAjax(id)
-{
+function rmElAjax(id) {
 
     resetAddObjectMode();
 
@@ -246,32 +230,24 @@ function rmElAjax(id)
             b = msg.split(':');
             a = b[0].split(',');
 
-            if (b[2] == 1)
-            {
+            if (b[2] == 1) {
                 alert('Удаляемый объект, или одна из вложенных в него, редактируется другим пользователем. Удаление невозможно.');
                 return;
             }
 
-            if (b[1] > 0)
-            {
-                if (!confirm('Удаление этого объекта, включая все вложенные, приведет к удалению ' + b[1] + ' свазанных изображений. Вы уверены?'))
-                {
+            if (b[1] > 0) {
+                if (!confirm('Удаление этого объекта, включая все вложенные, приведет к удалению ' + b[1] + ' свазанных изображений. Вы уверены?')) {
                     return;
                 }
             }
 
             result = true;
 
-            for ( var i in a )
-            {
-                if (window.editId != undefined)
-                {
-                    if (window.editId == a[i])
-                    {
-                        if (window.ObjEditors != undefined)
-                        {
-                            if (window.ObjEditors[window.editId] != undefined)
-                            {
+            for ( var i in a ) {
+                if (window.editId != undefined) {
+                    if (window.editId == a[i]) {
+                        if (window.ObjEditors != undefined) {
+                            if (window.ObjEditors[window.editId] != undefined) {
                                 result = window.ObjEditors[window.editId].close();
                             }
                         }
@@ -280,8 +256,7 @@ function rmElAjax(id)
             }
 
             // если не редактируем, или на предложение "закрыть" пользователь ответил утвердительно, удаляем
-            if (result)
-            {
+            if (result) {
                 $.ajax({
                     type: "GET",
                     url: "php/remove.php",
@@ -308,8 +283,7 @@ function rmElAjax(id)
 }
 
 
-function moveEl(id, param)
-{
+function moveEl(id, param) {
     $.ajax({
         type: "GET",
         url: "php/move.php",
@@ -318,12 +292,12 @@ function moveEl(id, param)
         success: function(msg){
                 if (param == -1) {
                     // move up
-                    if ($('#item' + id).hasClass('IsLast')) { $('#item' + id).removeClass('IsLast'); $('#item' + id).prev().addClass('IsLast'); }
+                    if ($('#item' + id).hasClass('IsLast')) { $('#item' + id).removeClass('IsLast').prev().addClass('IsLast'); }
                     $('#item' + id).after($('#item' + id).prev());
                 }
                 if (param == 1) {
                     // move down
-                    if ($('#item' + id).next().hasClass('IsLast')) { $('#item' + id).next().removeClass('IsLast'); $('#item' + id).addClass('IsLast'); }
+                    if ($('#item' + id).next().hasClass('IsLast')) { $('#item' + id).addClass('IsLast').next().removeClass('IsLast'); }
                     $('#item' + id).before($('#item' + id).next());
                 }
             }
@@ -341,7 +315,7 @@ function addObject(parent_id) {
     $('#addNewObject').one('click', function(e) {
 
         // hide arrows, del, add
-        setElementOpacity('treeUD' + parent_id, 0);
+        $('#treeUD' + parent_id).hide();
 
         var classId = $('#classList').val();
         resetAddObjectMode();
@@ -367,18 +341,17 @@ function addObject(parent_id) {
     });
 }
 
-function init()
-{
-    document.getElementById('treeContainer').innerHTML='<div class=Root id=item1 onclick="tree_toggle(arguments[0])">' + getElCode(1,'Все объекты',1,0,1) + '</div>';
+function init() {
+    $('#treeContainer').html('<div class=Root id=item1 onclick="tree_toggle(arguments[0])">' + getElCode(1,'Все объекты',1,0,1) + '</div>');
 
     // hackfix
-    setElementOpacity('treeUD1',0);
+    $('#treeUD1').hide();
 
     list(1, false);
 }
 
-function list(id, op)
-{
+function list(id, op) {
+
     $.ajax({
         type: "GET",
         url: "php/list.php?id="+id,
@@ -386,55 +359,12 @@ function list(id, op)
         success: function(msg){
 
                 a = msg.split('\n');
-
-                for ( var i in a )
-                {
+                for ( var i in a ) {
                     b = a[i].split('::');
-                    if (b[1] != undefined)
-                    {
-                        // debug alert(b[0] + '-' + b[1] + '-' + a[i]);
+                    if (b[1] != undefined) {
                         crEl(b[0], b[1], getElCode(b[1], b[2], b[3], b[4], b[5]), op);
                     }
                 }
             }
     });
-}
-
-function setElementOpacity(sElemId, nOpacity)
-{
-  var opacityProp = getOpacityProperty();
-  var elem = document.getElementById(sElemId);
-
-  if (!elem || !opacityProp) return; // Если не существует элемент с указанным id или браузер не поддерживает ни один из известных функции способов управления прозрачностью
-  
-  if (opacityProp=="filter")  // Internet Exploder 5.5+
-  {
-    nOpacity *= 100;
-
-    // Если уже установлена прозрачность, то меняем её через коллекцию filters, иначе добавляем прозрачность через style.filter
-    var oAlpha = elem.filters['DXImageTransform.Microsoft.alpha'] || elem.filters.alpha;
-    if (oAlpha) oAlpha.opacity = nOpacity;
-    else
-    { 
-        elem.style.filter += "progid:DXImageTransform.Microsoft.Alpha(opacity="+nOpacity+");"; // Для того чтобы не затереть другие фильтры используем "+="
-        elem.style.filter += "alpha(opacity="+nOpacity+");";
-    }
-
-  }
-  else // Другие браузеры
-    elem.style[opacityProp] = nOpacity;
-}
-
-function getOpacityProperty()
-{
-  if (typeof document.body.style.opacity == 'string') // CSS3 compliant (Moz 1.7+, Safari 1.2+, Opera 9)
-    return 'opacity';
-  else if (typeof document.body.style.MozOpacity == 'string') // Mozilla 1.6 и младше, Firefox 0.8 
-    return 'MozOpacity';
-  else if (typeof document.body.style.KhtmlOpacity == 'string') // Konqueror 3.1, Safari 1.1
-    return 'KhtmlOpacity';
-  else if (document.body.filters && navigator.appVersion.match(/MSIE ([\d.]+);/)[1]>=5.5) // Internet Exploder 5.5+
-    return 'filter';
-
-  return false; //нет прозрачности
 }
