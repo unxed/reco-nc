@@ -5,13 +5,11 @@ function ObjEditor(initId, placeId) {
     // этот код выполняется при первичной инициализации
     // при этом определяется, какой из классов-потомков нам нужен
     // и создается (и возвращается) экземпляр этого класса
-    if (initId)
-    {
+    if (initId) {
         // hackfix: нельзя создавать больше одного редактора в одном объекте.
         // на самом деле, правильный вариант: нельзя создавать больше одного редактора в одном placeId
 
-        if (window.editId!=undefined)
-        {
+        if (window.editId!=undefined) {
             if ((window.ObjEditors!=undefined) && (window.ObjEditors[window.editId]!=undefined)) {
 
                     window.ObjEditors[window.editId].close(function(){
@@ -40,18 +38,15 @@ function ObjEditor(initId, placeId) {
             error: function (xhr, ajaxOptions, thrownError) { alert('Error #' + xhr.status); undoEditorOpen(); },
             success: function(msg){
                     
-                if (msg == -1)
-                {
+                if (msg == -1) {
                     alert('Этот объект уже редактирует другой пользователь.');
 
                     undoEditorOpen();
-                } else if (msg == 'access denied')
-                {
+                } else if (msg == 'access denied') {
                     alert('Недостаточно прав доступа для чтения данного объекта.');
 
                     undoEditorOpen();
-                } else
-                {
+                } else {
                     UniEditor(initId, msg, placeId);
                 }
             }
@@ -69,8 +64,7 @@ function ObjEditor(initId, placeId) {
         properties: null,
         changesCount: null,
         // методы класса
-        PutOnPage: function(containerId)
-        {
+        PutOnPage: function(containerId) {
             this.container = containerId;
 
             html = this.generateHTML();
@@ -78,8 +72,8 @@ function ObjEditor(initId, placeId) {
             $('#' + this.container).append(html);
         },
         Init: function(id_, classId_, placeId) { this.id = id_; this.classId = classId_; if (placeId) { this.PutOnPage(placeId); } },
-        close: function(onOk)
-        {
+        close: function(onOk) {
+
             if ((this.changesCount > 0) && confirm('Сохранить сделанные изменения?')) {
                 that = this;
                 window.ObjEditors[this.id].save(function() {
@@ -112,8 +106,7 @@ function ObjEditor(initId, placeId) {
     }
 }
 
-function UniEditor(id, classId, placeId)
-{
+function UniEditor(id, classId, placeId) {
     // === <Стандартный код для всех потомков ObjEditor> ===
     // создание базового объекта
     me = ObjEditor();
@@ -123,8 +116,7 @@ function UniEditor(id, classId, placeId)
 
     // переопределение методов
     superPutOnPage = me.PutOnPage;
-    me.PutOnPage = function(containerid)
-    {
+    me.PutOnPage = function(containerid) {
         // сначала загрузим контент, а потом уже будет публиковать редактор
 
         $.ajax({
@@ -141,19 +133,15 @@ function UniEditor(id, classId, placeId)
         });
     }
 
-    me.initPage = function()
-    {
-        if (me.properties!=undefined)
-        { 
-            for (var i in me.properties.elements)
-            {
+    me.initPage = function() {
+        if (me.properties!=undefined) { 
+            for (var i in me.properties.elements) {
                 // datatype
-                switch (me.properties.elements[i].type)
-                {
+                switch (me.properties.elements[i].type) {
                     case '2':
 
-                        me.properties.elements[i].mceCfg =
-                        {
+                        me.properties.elements[i].mceCfg = {
+
                             mode : "exact",
                             elements :  'id'+id+'element'+me.properties.elements[i].id,
 
@@ -281,10 +269,8 @@ function UniEditor(id, classId, placeId)
         }
     }
 
-    me.generateHTML = function()
-    {
-        if (me.properties != undefined)
-        {
+    me.generateHTML = function() {
+        if (me.properties != undefined) {
             out = '<div id=innerbox' + id + '>';
 
             out += '<strong><a href=javascript:;><span onclick=window.ObjEditors[' + id + '].save();>Сохранить</span></a> | ' +
@@ -296,12 +282,10 @@ function UniEditor(id, classId, placeId)
 
             out += '</strong><br/><br/>';
 
-            for (var i in me.properties.elements)
-            {
+            for (var i in me.properties.elements) {
                 el_i = me.properties.elements[i];
 
-                if (el_i.value == null)
-                {
+                if (el_i.value == null) {
                     value = '';
                 }
 
@@ -311,14 +295,12 @@ function UniEditor(id, classId, placeId)
                 dval = el_i.value;
 
                 // datatype
-                switch (el_i.type)
-                {
+                switch (el_i.type) {
                     case '1':
                         out += '<table style="border-bottom: 1px dashed #ccc; margin: 0; padding:0;"><tr><td style="width: 240px;">' + dname + ' </td><td>' +
                         '<select id='+defaultId+' name='+defaultId+' onChange=window.ObjEditors['+id+'].changesCount++; onKeyDown=window.ObjEditors['+id+'].changesCount++;>';
 
-                        for ( var lst in el_i.list )
-                        {
+                        for ( var lst in el_i.list ) {
                             if (dval == lst) { sel = 'selected'; } else { sel = ''; }
                             out += '<option value='+lst+' '+sel+'>'+el_i.list[lst];
                         }
@@ -353,8 +335,7 @@ function UniEditor(id, classId, placeId)
                         '<input name=ref type=hidden value='+id+'><input name=el type=hidden value='+el_i.id+'></form>' +
                         '<iframe name=upload_'+defaultId+' height=1 width=1 frameborder=0></iframe>';
 
-                        if (el_i.maxcnt > 1)
-                        {
+                        if (el_i.maxcnt > 1) {
                             out += '<!--<br>-->' +
                             'Добавить группу изображений:' +
                             '<style>.swfupload { vertical-align: top; }</style>' +
@@ -419,8 +400,7 @@ function UniEditor(id, classId, placeId)
                         break;
                     case '13':
                         out += '<p style="margin-left:0px; margin-top:0px;">' + dname + ' <br>';
-                        for ( var lst in el_i.list )
-                        {
+                        for ( var lst in el_i.list ) {
                             sel = '';
                             var vals = dval.split(',');
                             // fixme: optimize this
@@ -442,13 +422,11 @@ function UniEditor(id, classId, placeId)
         }
     }
 
-    me.clearFlash = function(elementId)
-    {
+    me.clearFlash = function(elementId) {
         $('#flash_id'+id+'element'+elementId).html('');
     }
 
-    me.updateFlash = function(elementId, w, h)
-    {
+    me.updateFlash = function(elementId, w, h) {
         if (w == 0) return;
         
         uniq = Math.random();
@@ -460,13 +438,11 @@ function UniEditor(id, classId, placeId)
         $('#flash_id'+id+'element'+elementId).html(out);
     }
 
-    me.clearVideo = function(elementId)
-    {
+    me.clearVideo = function(elementId) {
         $('#video_id'+id+'element'+elementId).html('');
     }
 
-    me.updateVideo = function(elementId, w, h)
-    {
+    me.updateVideo = function(elementId, w, h) {
         if (w == 0) return;
         
         uniq = Math.random();
@@ -482,14 +458,13 @@ function UniEditor(id, classId, placeId)
         flowplayer("player_"+elementId, "swf/flowplayer-3.1.5.swf", {clip: {autoPlay: false, autoBuffering: true}});
     }
 
-    me.updateImages = function(elementId)
-    {
+    me.updateImages = function(elementId) {
         $.ajax({
             type: "GET",
             url: "php/uquery.php",
             cache: false,
             data: "class=" + classId + "&id="+id, // query вернет массив элементов объекта в json
-            success: function(msg){
+            success: function(msg) {
 
                     me.properties = eval( "(" + msg + ")" );
 
@@ -506,8 +481,7 @@ function UniEditor(id, classId, placeId)
                     content = '';
 
                     if (me.properties.elements[elementIndex] != undefined)
-                    for ( var imgNum in me.properties.elements[elementIndex].images)
-                    {
+                    for ( var imgNum in me.properties.elements[elementIndex].images) {
                         img_el = me.properties.elements[elementIndex].images[imgNum];
                         img = img_el.id;
 
@@ -540,7 +514,6 @@ function UniEditor(id, classId, placeId)
                     }
 
                     
-
                     content += '<hr style="display: block; clear: left; visibility: hidden;">';
 
                     $('#img_id' + me.id + 'element' + elementId).empty();
@@ -549,8 +522,7 @@ function UniEditor(id, classId, placeId)
         });
     }
 
-    me.moveImage = function(id, param, elementId)
-    {
+    me.moveImage = function(id, param, elementId) {
         $.ajax({
             type: "GET",
             url: "php/moveimg.php",
@@ -562,8 +534,7 @@ function UniEditor(id, classId, placeId)
         });
     }
 
-    me.delImage = function(id, elementId)
-    {
+    me.delImage = function(id, elementId) {
         $.ajax({
             type: "GET",
             url: "php/delimg.php",
@@ -576,21 +547,17 @@ function UniEditor(id, classId, placeId)
         });
     }
 
-    me.save = function(onOk)
-    {
+    me.save = function(onOk) {
         name = '';
         var query = "id=" + me.id;
         c = '';
 
-        for (var i in me.properties.elements)
-        {
+        for (var i in me.properties.elements) {
             // datatype
-            switch (me.properties.elements[i].type)
-            {
+            switch (me.properties.elements[i].type) {
                 case '13':
                     c = '';
-                    for ( var lst in me.properties.elements[i].list )
-                    {
+                    for ( var lst in me.properties.elements[i].list ) {
                         el = document.getElementById('id'+me.id+'element'+me.properties.elements[i].id+'sub'+lst);
                         if (el.checked)
                         {
@@ -604,8 +571,7 @@ function UniEditor(id, classId, placeId)
                     el = document.getElementById('id'+me.id+'element'+me.properties.elements[i].id);
                     if (el.selectedIndex!=-1) { c = el.options[el.selectedIndex].value; } else { c = 0; }
 
-                    if (me.properties.elements[i].isName == '1')
-                    {
+                    if (me.properties.elements[i].isName == '1') {
                         name = el.options[el.selectedIndex].text;
                     }
 
@@ -614,11 +580,6 @@ function UniEditor(id, classId, placeId)
                 case '2':
                     el = document.getElementById('id'+me.id+'element'+me.properties.elements[i].id);
                     if (el != undefined) { c = el.value; }
-
-                    /*
-                    ed = tinyMCE.getInstanceById('id'+me.id+'element'+me.properties.elements[i].id);
-                    c = ed.getContent();
-                    */
 
                     c = replaceLinks(c);
 
@@ -661,8 +622,7 @@ function UniEditor(id, classId, placeId)
                     break;
 
                 case '4':
-                    for (var k in me.properties.elements[i].images)
-                    {
+                    for (var k in me.properties.elements[i].images) {
                         j = me.properties.elements[i].images[k].id;
 
                         imgName='';
@@ -726,11 +686,9 @@ function UniEditor(id, classId, placeId)
         if (window.editId != undefined) { if (window.editId == this.id) { window.editId = null; } }
 
         if (me.properties != undefined)
-        for (var i in me.properties.elements)
-        {
+        for (var i in me.properties.elements) {
             // datatype
-            switch (me.properties.elements[i].type)
-            {
+            switch (me.properties.elements[i].type) {
                 case '2':
                     inst = tinyMCE.getInstanceById('id'+this.id+'element'+me.properties.elements[i].id);
                     if (inst != undefined) { tinyMCE.remove(inst); }
@@ -765,8 +723,8 @@ function Get_Cookie( check_name ) {
     cookie_value = '';
     b_cookie_found = false; // set boolean t/f default f
 
-    for ( i = 0; i < a_all_cookies.length; i++ )
-    {
+    for ( i = 0; i < a_all_cookies.length; i++ ) {
+
         // now we'll split apart each name=value pair
         a_temp_cookie = a_all_cookies[i].split( '=' );
 
@@ -775,12 +733,10 @@ function Get_Cookie( check_name ) {
         cookie_name = a_temp_cookie[0].replace(/^\s+|\s+$/g, '');
 
         // if the extracted name matches passed check_name
-        if ( cookie_name == check_name )
-        {
+        if ( cookie_name == check_name ) {
             b_cookie_found = true;
             // we need to handle case where cookie has no value but exists (no = sign, that is):
-            if ( a_temp_cookie.length > 1 )
-            {
+            if ( a_temp_cookie.length > 1 ) {
                 cookie_value = unescape( a_temp_cookie[1].replace(/^\s+|\s+$/g, '') );
             }
             // note that in cases where cookie is initialized but no value, null is returned
@@ -790,22 +746,18 @@ function Get_Cookie( check_name ) {
         a_temp_cookie = null;
         cookie_name = '';
     }
-    if ( !b_cookie_found )
-    {
+    if ( !b_cookie_found ) {
         return null;
     }
 }
 
-function undoEditorOpen()
-{
-    el = document.getElementById('caption'+window.selectedLink);
-    if (el!=undefined) { el.style.color=''; }
-    window.editId = null;
-    window.selectedLink = null;
+function undoEditorOpen() {
+    restoreCaptionColor();
+    delete window.editId;
+    delete window.selectedLink;
 }
 
-function replaceLinks(c)
-{
+function replaceLinks(c) {
     //
     // заменим ссылки вида
     // <a id="caption7" href="javascript:edit(7);">Ссылка</a>
