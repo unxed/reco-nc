@@ -13,7 +13,7 @@ if (file_exists('../config.php')) {
 
 include('langdata.php');
 include('access.php');
-include('auth.php');
+include('userauth.php');
 
 $config[version] = '0.4';
 
