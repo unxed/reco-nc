@@ -22,6 +22,13 @@ function getCookie(name) {
 
 function testConnection(callBack)
 {
+    testConnectionCallback = function(result) {
+        callBack(result);
+
+        var element = document.getElementById('testImage');
+        if (!(element === null)) { element.parentNode.removeChild(element); }
+    }    
+
 //  resets form!
 //    document.getElementsByTagName('body')[0].innerHTML +=
 //        '<img id="testImage" style="display: none;" ' +
@@ -37,7 +44,7 @@ function testConnection(callBack)
     _img.setAttribute("id","testImage");
     _img.setAttribute("width","1");
     _img.setAttribute("height","1");
-    _img.setAttribute("src","img/t.gif?" + Math.random());
+    _img.setAttribute("src","img/tt.gif?" + Math.random());
     _img.setAttribute("onerror","testConnectionCallback(false);");
     _img.setAttribute("onload","testConnectionCallback(true);");
 
@@ -56,14 +63,6 @@ function testConnection(callBack)
 
     _img.style.display = 'none';
     _body.appendChild(_img);
-
-    testConnectionCallback = function(result)
-    {
-        callBack(result);
-
-        var element = document.getElementById('testImage');
-        if (!(element === null)) { element.parentNode.removeChild(element); }
-    }    
 }
 
 function rChange()
